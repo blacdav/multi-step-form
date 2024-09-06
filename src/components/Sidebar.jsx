@@ -15,28 +15,28 @@ const Sidebar = () => {
       <div className='flex items-center gap-3'>
         <div className={`${yourinfo ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>1</div>
         <div className='text-justify leading-5'>
-            <p>STEP 1</p>
+            <p className='text-gray'>STEP 1</p>
             <p className='font-bold'>YOUR INFO</p>
         </div>
       </div>
       <div className='flex items-center gap-3'>
         <div className={`${selectplan ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>2</div>
         <div className='text-justify leading-5'>
-            <p>STEP 2</p>
+            <p className='text-gray'>STEP 2</p>
             <p className='font-bold'>SELECT PLAN</p>
         </div>
       </div>
       <div className='flex items-center gap-3'>
         <div className={`${addons ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>3</div>
         <div className='text-justify leading-5'>
-            <p>STEP 3</p>
+            <p className='text-gray'>STEP 3</p>
             <p className='font-bold'>ADD-ONS</p>
         </div>
       </div>
       <div className='flex items-center gap-3'>
         <div className={`${summary ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>4</div>
         <div className='text-justify leading-5'>
-            <p>STEP 4</p>
+            <p className='text-gray'>STEP 4</p>
             <p className='font-bold'>SUMMARY</p>
         </div>
       </div>
