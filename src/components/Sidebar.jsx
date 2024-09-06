@@ -11,7 +11,7 @@ const Sidebar = () => {
     const summary = pathname === '/summary';
 
   return (
-    <div className='w-1/4 flex flex-col gap-10 m-5 p-10 bg-blue-700 text-white rounded-xl'>
+    <div className='w-1/4 hidden md:flex flex-col gap-10 m-5 p-10 bg-blue-70 text-white rounded-xl bg-sidebar'>
       <div className='flex items-center gap-3'>
         <div className={`${yourinfo ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>1</div>
         <div className='text-justify leading-5'>
