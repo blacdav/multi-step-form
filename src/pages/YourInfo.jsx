@@ -2,13 +2,17 @@ import React from 'react'
 import Sidebar from '../components/Sidebar'
 
 const YourInfo = () => {
+    const handleInput = () => {
+        //
+    }
+
   return (
-    <div className='grid md:flex h-svh'>
+    <div className='flex flex-col md:flex-row h-svh'>
         <Sidebar />
-        <div className='w-full md:w-3/4 pt-16'>
-            <div className='px-5 md:px-36'>
+        <div className='w-full md:w-3/4 py-8 -mt-28 md:mt-0 overflow-y-auto'>
+            <div className='md:px-52'>
                 <form action="/" className=''>
-                    <div className='bg-primary md:bg-transparent rounded-xl px-5 py-8 grid gap-5'>
+                    <div className='bg-white shadow-lg md:shadow-none shadow-gray md:bg-transparent rounded-xl mx-5 md:mx-0 px-5 md:px-0 py-8 grid gap-5'>
                         <div className='w-full grid justify-start md:mb-10 md:leading-10 text-left'>
                             <h1 className='flex justify-start text-3xl text-primary font-semibold'>Personal Info</h1>
                             <p className='text-gray'>Please provide your name, email, and phone number.</p>
@@ -19,7 +23,7 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Name</p>
                                 <small className={`hidden text-red-600`}>this field is required</small>
                             </div>
-                            <input type="text" placeholder='e.g David, David' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="text" /* value={`test`} */ onClick={handleInput} placeholder='e.g David, David' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
 
                         <div className='grid gap-1'>
@@ -27,7 +31,7 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Email Address</p>
                                 <small className={`hidden text-red-600`}>this field is required</small>
                             </div>
-                            <input type="email" placeholder='e.g daviddavid@lorem.com' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="email" /* value={`test`} */ onClick={handleInput} placeholder='e.g daviddavid@lorem.com' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
 
                         <div className='grid gap-1'>
@@ -35,12 +39,12 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Phone Number</p>
                                 <small className={`hidden text-red-600`}>this field is required</small>
                             </div>
-                            <input type="tel" placeholder='e.g +2348888889980' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="tel" /* value={`test`} */ onClick={handleInput} placeholder='e.g +2348888889980' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
                     </div>
 
-                    <div className='w-full flex justify-end'>
-                        <button className='rounded-lg bg-primary text-white font-semibold w-fit h-12 px-5 mt-20'>Next step</button>
+                    <div className='w-full bg-black md:bg-transparent p-5 md:px-0 flex justify-end mt-20'>
+                        <button className='rounded-lg bg-primary text-white font-semibold w-fit h-12 px-5'>Next step</button>
                     </div>
                 </form>
             </div>

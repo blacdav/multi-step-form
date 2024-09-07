@@ -8,6 +8,14 @@
   background-size: cover;
 }
 
+@media (max-width: 437px) {
+  .bg-sidebar {
+    background-image: url('../public/images/bg-sidebar-mobile.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
