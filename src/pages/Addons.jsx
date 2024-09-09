@@ -1,13 +1,16 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
+import { useNavigate } from 'react-router-dom'
 
 const Addons = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className='flex flex-col md:flex-row h-svh'>
       <Sidebar />
       <div className='w-full md:w-3/4 py-8 -mt-28 md:mt-0 overflow-y-auto'>
         <div className='md:px-36'>
-          <form action="/" className='grid gap-3'>
+          <form action="/summary" className='grid gap-3'>
             <div className='bg-white shadow-lg md:shadow-none md:bg-transparent rounded-xl mx-5 md:mx-0 px-5 md:px-0 py-8 grid gap-3'>
               <div className='w-full grid justify-start md:mb-10 md:leading-10 text-left'>
                 <h1 className='flex justify-start text-3xl text-primary font-semibold'>Pick add-ons</h1>
@@ -48,8 +51,8 @@ const Addons = () => {
               </div>
             </div>
 
-            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-20'>
-              <p className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
+            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-20 absolute bottom-0 md:relative md:bottom-auto'>
+              <p onClick={() => navigate(-1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-primary text-white w-fit h-12 px-5'>Next step</button>
             </div>
           </form>

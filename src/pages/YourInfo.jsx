@@ -1,7 +1,10 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
+// import { useForm } from '../context/FormManagement'
 
 const YourInfo = () => {
+    // const { formData, YourInfo } = useForm();
+
     const handleInput = () => {
         //
     }
@@ -11,7 +14,7 @@ const YourInfo = () => {
         <Sidebar />
         <div className='w-full md:w-3/4 py-8 -mt-28 md:mt-0 overflow-y-auto'>
             <div className='md:px-52'>
-                <form action="/" className=''>
+                <form action="/select-plan" className=''>
                     <div className='bg-white shadow-lg md:shadow-none shadow-gray md:bg-transparent rounded-xl mx-5 md:mx-0 px-5 md:px-0 py-8 grid gap-5'>
                         <div className='w-full grid justify-start md:mb-10 md:leading-10 text-left'>
                             <h1 className='flex justify-start text-3xl text-primary font-semibold'>Personal Info</h1>
@@ -43,7 +46,7 @@ const YourInfo = () => {
                         </div>
                     </div>
 
-                    <div className='w-full bg-black md:bg-transparent p-5 md:px-0 flex justify-end mt-20'>
+                    <div className='w-full bg-black md:bg-transparent p-5 md:px-0 flex justify-end mt-20 absolute bottom-0 md:relative md:bottom-auto'>
                         <button className='rounded-lg bg-primary text-white font-semibold w-fit h-12 px-5'>Next step</button>
                     </div>
                 </form>
