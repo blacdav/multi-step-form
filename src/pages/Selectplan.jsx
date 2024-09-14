@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar'
-import { useNavigate } from 'react-router-dom';
+import { useForm } from '../context/FormManagement';
 
 const Selectplan = () => {
+  const { step, setStep, data, setData } = useForm();
   const [ toggle, setToggle ] = useState(false);
-  const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('next');
+    setStep(step +1)
+  }
 
   return (
     <div className='flex flex-col md:flex-row h-lvh'>
       <Sidebar />
       <div className='w-full md:w-3/4 py-8 -mt-28 md:mt-0 md:overflow-y-auto'>
         <div className='md:px-52'>
-          <form action="/add-ons" className=''>
+          <form onSubmit={handleSubmit} className=''>
             <div className='bg-white shadow-lg md:shadow-none shadow-gray md:bg-transparent rounded-xl mx-5 md:mx-0 px-5 md:px-0 py-8 grid gap-5'>
               <div className='w-full grid justify-start md:mb-10 md:leading-10'>
                 <h1 className='flex justify-start text-3xl text-primary font-semibold'>Select your plan</h1>
@@ -59,7 +65,7 @@ const Selectplan = () => {
             </div>
 
             <div className='w-full h-auto flex bg-black md:bg-transparent p-5 md:px-0 font-semibold justify-between items-baseline mt-5 md:mt-20 absolute bottom-0 md:relative md:bottom-auto'>
-              <p onClick={() => navigate(-1)} className='font-semibold text-gray hover:text-primary cursor-pointer'>Go Back</p>
+              <p onClick={() => setStep(step -1)} className='font-semibold text-gray hover:text-primary cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-primary text-white w-fit h-12 px-5'>Next step</button>
             </div>
           </form>

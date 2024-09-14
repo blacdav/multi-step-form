@@ -1,14 +1,13 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useForm } from '../context/FormManagement';
 
 const Sidebar = () => {
-    const location = useLocation();
-    const pathname = location.pathname;
+    const { step, setStep } = useForm();
     
-    const yourinfo = pathname === '/';
-    const selectplan = pathname === '/select-plan';
-    const addons = pathname === '/add-ons';
-    const summary = pathname === '/summary';
+    const yourinfo = step === 0;
+    const selectplan = step === 1;
+    const addons = step === 2;
+    const summary = step === 3;
 
   return (
     <div className='w-full md:w-1/4 h-48 md:h-auto flex md:flex-col flex-row items-start justify-center md:justify-normal gap-10 md:m-2 p-10 bg-blue-70 text-white md:rounded-xl bg-sidebar'>

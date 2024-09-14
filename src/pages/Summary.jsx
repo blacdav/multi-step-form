@@ -1,9 +1,9 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
-import { useNavigate } from 'react-router-dom'
+import { useForm } from '../context/FormManagement';
 
 const Summary = () => {
-    const navigate = useNavigate()
+  const { step, setStep, data, setData } = useForm();
 
   return (
     <div className='flex flex-col md:flex-row h-svh'>
@@ -45,8 +45,8 @@ const Summary = () => {
             </div>
 
             <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-20 absolute bottom-0 md:relative md:bottom-auto'>
-              <p onClick={() => navigate(-1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
-              <button className='rounded-lg bg-primary text-white w-fit h-12 px-5'>Next step</button>
+              <p onClick={() => setStep(step -1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
+              <button className='rounded-lg bg-secondary text-white w-fit h-12 px-5'>Confirm</button>
             </div>
           </form>
         </div>
