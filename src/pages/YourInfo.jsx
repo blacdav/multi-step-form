@@ -16,6 +16,16 @@ const YourInfo = () => {
         setStep(step +1)
     }
 
+    const validation = (e) => {
+        const err = {}
+
+        if(data.name === '') {
+            err.name = 'This field cannot be blank';
+        } else if(data.name <= 3) {
+            err.name = 'name is not complete';
+        }
+    }
+
   return (
     <div className='flex flex-col md:flex-row h-svh'>
         <Sidebar />
@@ -25,13 +35,13 @@ const YourInfo = () => {
                     <div className='bg-white shadow-lg md:shadow-none shadow-gray md:bg-transparent rounded-xl mx-5 md:mx-0 px-5 md:px-0 py-8 grid gap-5'>
                         <div className='w-full grid justify-start md:mb-10 md:leading-10 text-left'>
                             <h1 className='flex justify-start text-3xl text-primary font-semibold'>Personal Info</h1>
-                            <p className='text-gray'>Please provide your name, email, and phone number.</p>
+                            <p className='text-gray'>Plea provide your name, email, and phone number.</p>
                         </div>
 
                         <div className='grid gap-1'>
                             <div className='flex justify-between'>
                                 <p className='text-primary font-semibold'>Name</p>
-                                <small className={`hidden text-red-600`}>this field is required</small>
+                                <small className={`hidden text-red-600`}></small>
                             </div>
                             <input type="text" value={data.name} name='name' onChange={handleInput} placeholder='e.g David, David' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>

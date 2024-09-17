@@ -22,7 +22,7 @@ const Summary = () => {
                     <div className='flex items-center justify-between pb-5 border-b border-gray'>
                         <div className=''>
                             <p className='font-semibold text-primary'>Arcade (Monthly)</p>
-                            <small className='text-gray underline'>Change</small>
+                            <small onClick={() => setStep(1)} className='text-gray underline'>Change</small>
                         </div>
                         <small className='text-primary font-semibold'>$9/mo</small>
                     </div>

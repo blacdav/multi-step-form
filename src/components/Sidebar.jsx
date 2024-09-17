@@ -1,16 +1,21 @@
 import React from 'react'
 import { useForm } from '../context/FormManagement';
+// import { useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-    const { step, setStep } = useForm();
+    const { step } = useForm();
+    // const location = useLocation()
     
+    // const home = location.pathname === '/'
     const yourinfo = step === 0;
     const selectplan = step === 1;
     const addons = step === 2;
     const summary = step === 3;
 
+    // const submitted = location.pathname === '/submitted'
+
   return (
-    <div className='w-full md:w-1/4 h-48 md:h-auto flex md:flex-col flex-row items-start justify-center md:justify-normal gap-10 md:m-2 p-10 bg-blue-70 text-white md:rounded-xl bg-sidebar'>
+    <div className={`flex w-full md:w-1/4 h-48 md:h-auto md:flex-col flex-row items-start justify-center md:justify-normal gap-10 md:m-2 p-10 bg-blue-70 text-white md:rounded-xl bg-sidebar`}>
       <div className='flex items-center gap-3'>
         <div className={`${yourinfo ? 'bg-blue-100 text-black font-semibold' : ''} w-9 h-9 rounded-full border-2 border-blue-100 flex items-center justify-center`}>1</div>
         <div className='text-justify hidden md:grid leading-5'>

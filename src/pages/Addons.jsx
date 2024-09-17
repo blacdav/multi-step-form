@@ -1,16 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar'
-import { useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
 import { useForm } from '../context/FormManagement'
 
 const Addons = () => {
   const { step, setStep } = useForm();
-  const checkRef = useRef()
-  const navigate = useNavigate();
+  const [select, setSelect] = useState(false);
 
-  const selectItem = () => {
-    // set
+  const handleSelect = (e) => {
+    e.preventDefault();
+    setSelect(!select);
   }
 
   const handleSubmit = (e) => {
@@ -31,9 +29,9 @@ const Addons = () => {
                 <p className='text-gray'>Add-ons help enhance your gaming experience.</p>
               </div>
 
-              <div className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
+              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
                 <div className='flex gap-4 leading-5'>
-                  <input ref={checkRef} type="checkbox" className={`accent-secondary w-4`} />
+                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
                   <div className='text-justify'>
                       <p className='text-sm font-bold text-primary'>Online Services</p>
                       <p className='text-xs text-gray'>Access to multiplayers game</p>
@@ -42,9 +40,9 @@ const Addons = () => {
                 <p className='text-xs text-secondary font-bold'>+$1/mo</p>
               </div>
               
-              <div className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
+              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
                 <div className='flex gap-4 leading-5'>
-                  <input ref={checkRef} type="checkbox" className={`accent-secondary w-4`} />
+                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
                   <div className='text-justify'>
                       <p className='text-sm font-bold text-primary'>Larger Storage</p>
                       <p className='text-xs text-gray'>Extra 1TB of cloud save</p>
@@ -53,9 +51,9 @@ const Addons = () => {
                 <p className='text-xs text-secondary font-bold'>+$2/mo</p>
               </div>
 
-              <div className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
+              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
                 <div className='flex gap-4 leading-5'>
-                  <input ref={checkRef} type="checkbox" className={`accent-secondary w-4`} />
+                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
                   <div className='text-justify'>
                       <p className='text-sm font-bold text-primary'>Customizable Profile</p>
                       <p className='text-xs text-gray'>custom theme on your profile</p>
