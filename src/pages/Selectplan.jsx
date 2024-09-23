@@ -1,15 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useForm } from '../context/FormManagement';
 
 const Selectplan = () => {
-  const { step, setStep, data, setData } = useForm();
-  const [ toggle, setToggle ] = useState(false);
+  const { step, setStep, data, setData, toggle, setToggle, isSelected, setIsSelected } = useForm();
+  const [ plan, setPlan ] = useState([]);
+  const [selectedPlan, setSelectedPlan] = useState({
+    name: '',
+    cost: ''
+  });
+
+  useEffect(() => {
+    getPlan();
+  }, [])
+
+  const getPlan = async () => {
+    try {
+      const res = await fetch('/Data.json')
+      if (!res.ok) {
+        throw new Error(`Network Response was not Ok`)
+      }
+      const data = await res.json();
+      console.log(data)
+      setPlan(data.Plans)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const itemRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('next');
-    setStep(step +1)
+    console.log(plan.length);
+    setStep(step +1);
+
+    if(toggle === true){
+      data.plan.type = 'yearly'
+    } else {
+      data.plan.type = 'monthly'
+    }
+    console.log(data)
   }
 
   return (
@@ -25,32 +56,19 @@ const Selectplan = () => {
               </div>
                 
               <div className='flex flex-col md:flex-row gap-5 *:h-24 *:md:h-48'>
-                <div className='flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 border-secondary rounded-lg p-3'>
-                  <img src="/images/icon-arcade.svg" alt="arcade icon" width={40} />
-                  <div className='grid'>
-                    <p className='font-semibold text-primary'>Arcade</p>
-                    <small className='text-gray'>$9/mo</small>
-                    <small className={`${!toggle ? 'hidden' : ''} text-primary font-semibold`}>2 months free</small>
-                  </div>
-                </div>
-                
-                <div className='flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 border-secondary rounded-lg p-3'>
-                  <img src="/images/icon-advanced.svg" alt="arcade icon" width={40} />
-                  <div className='grid justify-between'>
-                    <p className='font-semibold text-primary'>Advanced</p>
-                    <small className='text-gray'>$12/mo</small>
-                    <small className={`${!toggle ? 'hidden' : ''} text-primary font-semibold`}>2 months free</small>
-                  </div>
-                </div>
-                
-                <div className='flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 border-gray rounded-lg p-3'>
-                  <img src="/images/icon-pro.svg" alt="arcade icon" width={40} />
-                  <div className='grid justify-between'>
-                    <p className='font-semibold text-primary'>Pro</p>
-                    <small className='text-gray'>$15/mo</small>
-                    <small className={`${!toggle ? 'hidden' : ''} text-primary font-semibold`}>2 months free</small>
-                  </div>
-                </div>
+                {
+                  plan.map((p, i) => (
+                    <div key={i} ref={itemRef} onClick={() => setIsSelected(!isSelected)} className={`flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 ${isSelected ? 'border-secondary' : 'border-gray'} rounded-lg p-3`}>
+                      <img src={p.icon} alt="arcade icon" width={40} />
+                      <div className='grid justify-between'>
+                        <p className='font-semibold text-primary'>{p.name}</p>
+                        <small className='text-gray'>${toggle === true ? p.ycost : p.mcost}/{toggle === true ? 'yr' : 'mo'}</small>
+                        {/* <small className={`${toggle === false ? 'flex' : 'hidden'} text-gray`}>${p.mcost}/mo</small> */}
+                        <small className={`${!toggle ? 'hidden' : ''} text-primary font-semibold`}>2 months free</small>
+                      </div>
+                    </div>
+                  ))
+                }
               </div>
 
               <div className='w-full rounded-lg bg-slate-200 h-12 grid items-center justify-center'>
@@ -64,7 +82,7 @@ const Selectplan = () => {
               </div>
             </div>
 
-            <div className='w-full h-auto flex bg-black md:bg-transparent p-5 md:px-0 font-semibold justify-between items-baseline mt-5 md:mt-20 absolute bottom-0 md:relative md:bottom-auto'>
+            <div className='w-full h-auto flex bg-black md:bg-transparent p-5 md:px-0 font-semibold justify-between items-baseline mt-5 absolute bottom-0 md:relative md:bottom-auto'>
               <p onClick={() => setStep(step -1)} className='font-semibold text-gray hover:text-primary cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-primary text-white w-fit h-12 px-5'>Next step</button>
             </div>

@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useForm } from '../context/FormManagement'
 
 const Addons = () => {
-  const { step, setStep } = useForm();
+  const { step, setStep, toggle, isSelectedAddon, setIsSelectedAddon } = useForm();
+  const [addons, setAddons] = useState([]);
   const [select, setSelect] = useState(false);
+
+  useEffect(() => {
+    getPlan();
+  }, [])
+
+  const getPlan = async () => {
+    try {
+      const res = await fetch('/Data.json')
+      if (!res.ok) {
+        throw new Error(`Network Response was not Ok`)
+      }
+      const data = await res.json();
+      console.log(data)
+      setAddons(data.AddOns)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const handleSelect = (e) => {
     e.preventDefault();
     setSelect(!select);
+    setIsSelectedAddon(!isSelectedAddon);
+    console.log(addons.mcost)
   }
 
   const handleSubmit = (e) => {
@@ -29,41 +50,23 @@ const Addons = () => {
                 <p className='text-gray'>Add-ons help enhance your gaming experience.</p>
               </div>
 
-              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
-                <div className='flex gap-4 leading-5'>
-                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
-                  <div className='text-justify'>
-                      <p className='text-sm font-bold text-primary'>Online Services</p>
-                      <p className='text-xs text-gray'>Access to multiplayers game</p>
+              {
+                addons.map((a, i) => (
+                  <div key={i} onClick={handleSelect} className={`flex h-20 justify-between items-center px-5 gap-1 border-2 ${isSelectedAddon ? 'border-secondary' : 'border-gray'} hover:cursor-pointer rounded-lg`}>
+                    <div className='flex gap-4 leading-5'>
+                      <input checked={isSelectedAddon} type="checkbox" className={`accent-secondary w-4`} />
+                      <div className='text-justify'>
+                          <p className='text-sm font-bold text-primary'>{a.name}</p>
+                          <p className='text-xs text-gray'>{a.extra}</p>
+                      </div>
+                    </div>
+                    <p className='text-xs text-secondary font-bold'>+${toggle === true ? a.ycost : a.mcost}/{toggle === true ? 'yr' : 'mo'}</p>
                   </div>
-                </div>
-                <p className='text-xs text-secondary font-bold'>+$1/mo</p>
-              </div>
-              
-              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
-                <div className='flex gap-4 leading-5'>
-                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
-                  <div className='text-justify'>
-                      <p className='text-sm font-bold text-primary'>Larger Storage</p>
-                      <p className='text-xs text-gray'>Extra 1TB of cloud save</p>
-                  </div>
-                </div>
-                <p className='text-xs text-secondary font-bold'>+$2/mo</p>
-              </div>
-
-              <div onClick={handleSelect} className='flex h-20 justify-between items-center px-5 gap-1 border-2 border-secondary hover:cursor-pointer rounded-lg'>
-                <div className='flex gap-4 leading-5'>
-                  <input checked={select} type="checkbox" className={`accent-secondary w-4`} />
-                  <div className='text-justify'>
-                      <p className='text-sm font-bold text-primary'>Customizable Profile</p>
-                      <p className='text-xs text-gray'>custom theme on your profile</p>
-                  </div>
-                </div>
-                <p className='text-xs text-secondary font-bold'>+$2/mo</p>
-              </div>
+                ))
+              }
             </div>
 
-            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-20 absolute bottom-0 md:relative md:bottom-auto'>
+            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-5 absolute bottom-0 md:relative md:bottom-auto'>
               <p onClick={() => setStep(step -1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-primary text-white w-fit h-12 px-5'>Next step</button>
             </div>

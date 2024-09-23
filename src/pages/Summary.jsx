@@ -3,7 +3,12 @@ import Sidebar from '../components/Sidebar'
 import { useForm } from '../context/FormManagement';
 
 const Summary = () => {
-  const { step, setStep, data, setData } = useForm();
+  const { step, setStep, toggle, data } = useForm();
+  const plan = Number(data.plan.cost);
+  const first = Number(data.addons.first.cost);
+  const second = Number(data.addons.second.cost);
+
+  const total = plan + first + second;
 
   return (
     <div className='flex flex-col md:flex-row h-svh'>
@@ -21,30 +26,30 @@ const Summary = () => {
                 <div className='bg-slate-200 p-5 rounded-lg'>
                     <div className='flex items-center justify-between pb-5 border-b border-gray'>
                         <div className=''>
-                            <p className='font-semibold text-primary'>Arcade (Monthly)</p>
-                            <small onClick={() => setStep(1)} className='text-gray underline'>Change</small>
+                            <p className='font-semibold text-primary'>{data.plan.name} ({data.plan.type})</p>
+                            <small onClick={() => setStep(1)} className='text-gray underline hover:cursor-pointer'>Change</small>
                         </div>
-                        <small className='text-primary font-semibold'>$9/mo</small>
+                        <small className='text-primary font-semibold'>${data.plan.cost}/{toggle === true ? 'yr' : 'mo'}</small>
                     </div>
                     <div className='grid gap-2 pt-3'>
                         <div className='flex justify-between'>
                             <small className='text-gray'>Online Service</small>
-                            <small className='text-primary font-semibold'>+$1/mo</small>
+                            <small className='text-primary font-semibold'>+$1/{toggle === true ? 'yr' : 'mo'}</small>
                         </div>
                         <div className='flex justify-between'>
                             <small className='text-gray'>Larger storage</small>
-                            <small className='text-primary font-semibold'>+$2/mo</small>
+                            <small className='text-primary font-semibold'>+$2/{toggle === true ? 'yr' : 'mo'}</small>
                         </div>
                     </div>
                 </div>
                 <div className='flex justify-between items-center px-5 pt-5'>
-                    <small className='text-gray'>Total (per month)</small>
-                    <p className='text-secondary font-bold'>+$12/mo</p>
+                    <small className='text-gray'>Total (per {toggle === true ? 'year' : 'month'})</small>
+                    <p className='text-secondary font-bold'>+${total}/{toggle === true ? 'yr' : 'mo'}</p>
                 </div>
               </div>
             </div>
 
-            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-20 absolute bottom-0 md:relative md:bottom-auto'>
+            <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-5 absolute bottom-0 md:relative md:bottom-auto'>
               <p onClick={() => setStep(step -1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-secondary text-white w-fit h-12 px-5'>Confirm</button>
             </div>

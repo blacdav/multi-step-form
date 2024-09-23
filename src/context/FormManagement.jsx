@@ -11,13 +11,28 @@ export const FormProvider = ({ children }) => {
         telephone: '',
         plan: {
             type: '',
-            name: '',
+            name: 'Arcade',
+            cost: '9',
         },
-        addons: {},
-    })
+        addons: {
+            first: {
+                name: '',
+                cost: '1',
+                extra: '',
+            },
+            second: {
+                name: '',
+                cost: '2',
+                extra: '',
+            }
+        },
+    });
+    const [ isSelected, setIsSelected ] = useState(false);
+    const [ toggle, setToggle ] = useState(false);
+    const [isSelectedAddon, setIsSelectedAddon] = useState(false);
 
     return(
-        <FormContext.Provider value={{ step, setStep, data, setData, error, setError }}>
+        <FormContext.Provider value={{ step, setStep, data, setData, error, setError, isSelected, setIsSelected, toggle, setToggle, isSelectedAddon, setIsSelectedAddon }}>
             { children }
         </FormContext.Provider>
     )
