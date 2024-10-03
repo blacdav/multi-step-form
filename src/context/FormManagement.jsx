@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const FormContext = createContext()
+const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
     const [step, setStep] = useState(0);
@@ -8,7 +8,7 @@ export const FormProvider = ({ children }) => {
     const [data, setData] = useState({
         name: '',
         email: '',
-        telephone: '',
+        telephone: '+2348126215807',
         plan: {
             type: '',
             name: 'Arcade',
@@ -27,7 +27,7 @@ export const FormProvider = ({ children }) => {
             }
         },
     });
-    const [ isSelected, setIsSelected ] = useState(false);
+    const [ isSelected, setIsSelected ] = useState();
     const [ toggle, setToggle ] = useState(false);
     const [isSelectedAddon, setIsSelectedAddon] = useState(false);
 

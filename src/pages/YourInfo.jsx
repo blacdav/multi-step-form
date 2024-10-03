@@ -10,16 +10,17 @@ const YourInfo = () => {
     const handleInput = (e) => {
         const input = {...data, [e.target.name]: e.target.value};
         setData(input);
-        setError(validation(data))
+        // setError(validation(data));
     }
 
     console.log(data)
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const validate = validation(data);
-        // setError(validate);
-        // setStep(step +1)
+        const validate = validation(data);
+        setError(validate);
+        console.log(error)
+        // setStep(step +1);
     }
 
     const validation = (data) => {
@@ -30,14 +31,12 @@ const YourInfo = () => {
             err.name = 'This field is required';
         }else if(data.name.length < 6){
             err.name = 'name is not complete';
-        } else {
-            //
         }
-
+            
         if(data.email === ''){
             err.email = 'This feild is required';
-        } else if(data.email) {
-            //
+        } else if(!data.email.includes('@' && '.')) {
+            err.email = 'Email pattern is not correct';
         }
 
         if(data.telephone === '') {

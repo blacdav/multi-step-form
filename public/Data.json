@@ -1,6 +1,7 @@
 {
     "Plans" : [
         {
+            "id": "1",
             "icon": "/images/icon-arcade.svg",
             "name": "Arcade",
             "mcost": "9",
@@ -8,6 +9,7 @@
             "extra": "2"
         },
         {
+            "id": "2",
             "icon": "/images/icon-advanced.svg",
             "name": "Advanced",
             "mcost": "12",
@@ -15,6 +17,7 @@
             "extra": "2"
         },
         {
+            "id": "3",
             "icon": "/images/icon-pro.svg",
             "name": "Pro",
             "mcost": "15",
@@ -25,18 +28,21 @@
 
     "AddOns" : [
         {
+            "id": "1",
             "name": "Online Services",
             "mcost": "9",
             "ycost": "10",
             "extra": "Access to multiplayers game"
         },
         {
+            "id": "2",
             "name": "Larger Storage",
             "mcost": "12",
             "ycost": "20",
             "extra": "Extra 1TB for cloud save"
         },
         {
+            "id": "3",
             "name": "Customizable Profile",
             "mcost": "15",
             "ycost": "20",
