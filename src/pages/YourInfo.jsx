@@ -20,7 +20,10 @@ const YourInfo = () => {
         const validate = validation(data);
         setError(validate);
         console.log(error)
-        // setStep(step +1);
+        
+        if(Object.keys(validate).length === 0) {
+            setStep(step + 1);
+        }
     }
 
     const validation = (data) => {

@@ -27,30 +27,34 @@ const Selectplan = () => {
 
   // Function to handle selection of a plan
   const handlePlanClick = (planId) => {
-    if (selectedPlans.includes(planId)) {
+    if (selectedPlans.includes(planId.id)) {
       // Deselect the plan if already selected
-      setSelectedPlans(selectedPlans.filter(id => id !== planId));
+      setSelectedPlans(selectedPlans.filter(id => id !== planId.id));
     } else if (selectedPlans.length < 1) {
-      // Select the plan if less than 2 plans are selected
-      setSelectedPlans([...selectedPlans, planId]);
+      // Select the plan if less than 2 plans are selected0
+      setSelectedPlans([...selectedPlans, planId.id]);
+      // const myPlan = {...data, [plan.name]: 'Arcane'}
+
+      // setData(selectedPlans)
+      console.log(selectedPlans)
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, planId) => {
     e.preventDefault();
+
     if(selectedPlans.length < 1) {
       alert('please select a plan')
     } else {
-      setStep(step + 1);
+      // setStep(step + 1);
     }
-    console.log(plan.length);
 
     if (toggle === true) {
-      data.plan.type = 'yearly';
+      setData({...data, [plan.type]: 'yearly'})
+      // data.plan.type = 'yearly';
     } else {
       data.plan.type = 'monthly';
     }
-    console.log(data);
   };
 
   return (
@@ -69,11 +73,12 @@ const Selectplan = () => {
                 {plan.map((p) => (
                   <div
                     key={p.id}
-                    onClick={() => handlePlanClick(p.id)}
+                    onClick={() => handlePlanClick(p)}
                     className={`flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 hover:cursor-pointer hover:border-secondary ${
                       selectedPlans.includes(p.id) ? 'border-secondary' : 'border-gray'
                     } rounded-lg p-3`}
                   >
+                    {/* <input type="radio" name='plan' checked={selectedPlans.includes(p)} className={`h-5 w-5`} /> */}
                     <img src={p.icon} alt="arcade icon" width={40} />
                     <div className="grid justify-between">
                       <p className="font-semibold text-primary">{p.name}</p>

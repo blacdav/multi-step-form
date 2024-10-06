@@ -35,7 +35,7 @@ const Addons = () => {
   };
 
   const handleDivClick = (id) => {
-    toggleSelectAddon(id);
+    toggleSelectAddon(id.id);
   };
 
   const handleSubmit = (e) => {
@@ -65,7 +65,7 @@ const Addons = () => {
               {addons.map((a) => (
                 <div
                   key={a.id}
-                  onClick={() => handleDivClick(a.id)}
+                  onClick={() => handleDivClick(a)}
                   className={`flex h-20 justify-between items-center px-5 gap-1 border-2 ${
                     selectedAddons.includes(a.id) ? 'border-secondary' : 'border-gray'
                   } hover:cursor-pointer hover:border-secondary rounded-lg`}

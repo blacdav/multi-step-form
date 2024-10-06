@@ -11,7 +11,7 @@ export const FormProvider = ({ children }) => {
         telephone: '+2348126215807',
         plan: {
             type: '',
-            name: 'Arcade',
+            name: '',
             cost: '9',
         },
         addons: {
