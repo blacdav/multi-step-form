@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Addons = () => {
   const { step, setStep, toggle, isSelectedAddon, setIsSelectedAddon } = useForm();
   const [addons, setAddons] = useState([]);
   const [selectedAddons, setSelectedAddons] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPlan();
@@ -45,7 +48,7 @@ const Addons = () => {
     } else if(selectedAddons.length === 1) {
       alert('please select atleast two items');
     } else {
-      setStep(step +1)
+      navigate('/summary')
     }
     console.log('Selected Add-ons:', selectedAddons);
   };

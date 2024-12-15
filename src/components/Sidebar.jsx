@@ -1,16 +1,13 @@
 import React from 'react'
-import { useForm } from '../context/FormManagement';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-    const { step } = useForm();
-    // const location = useLocation()
-    
-    // const home = location.pathname === '/'
-    const yourinfo = step === 0;
-    const selectplan = step === 1;
-    const addons = step === 2;
-    const summary = step === 3;
+    const location = useLocation()
+
+    const yourinfo = location.pathname === '/';
+    const selectplan = location.pathname === '/select-plan';
+    const addons = location.pathname === '/addons';
+    const summary = location.pathname === '/summary';
 
     // const submitted = location.pathname === '/submitted'
 

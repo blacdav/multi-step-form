@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Selectplan = () => {
   const { step, setStep, data, setData, toggle, setToggle, isSelected, setIsSelected } = useForm();
   const [plan, setPlan] = useState([]);
   const [selectedPlans, setSelectedPlans] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPlan();
@@ -46,7 +48,7 @@ const Selectplan = () => {
     if(selectedPlans.length < 1) {
       alert('please select a plan')
     } else {
-      // setStep(step + 1);
+      navigate('/addons')
     }
 
     if (toggle === true) {

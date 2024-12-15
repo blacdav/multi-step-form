@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useForm } from '../context/FormManagement'
+import { useNavigate } from 'react-router-dom'
 
 const YourInfo = () => {
-    const { step, setStep, data, setData } = useForm();
+    const { data, setData } = useForm();
     const [error, setError] = useState({});
     // const [success, setSuccess] = useState({});
+
+    const navigate = useNavigate();
 
     const handleInput = (e) => {
         const input = {...data, [e.target.name]: e.target.value};
@@ -22,7 +25,7 @@ const YourInfo = () => {
         console.log(error)
         
         if(Object.keys(validate).length === 0) {
-            setStep(step + 1);
+            navigate('/select-plan')
         }
     }
 
