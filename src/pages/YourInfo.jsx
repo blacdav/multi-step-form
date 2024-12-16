@@ -4,25 +4,15 @@ import { useForm } from '../context/FormManagement'
 import { useNavigate } from 'react-router-dom'
 
 const YourInfo = () => {
-    const { data, setData } = useForm();
+    const { state: {user_info}, handleInput } = useForm();
     const [error, setError] = useState({});
-    // const [success, setSuccess] = useState({});
 
     const navigate = useNavigate();
 
-    const handleInput = (e) => {
-        const input = {...data, [e.target.name]: e.target.value};
-        setData(input);
-        // setError(validation(data));
-    }
-
-    console.log(data)
-    
     const handleSubmit = (e) => {
         e.preventDefault();
-        const validate = validation(data);
+        const validate = validation(user_info);
         setError(validate);
-        console.log(error)
         
         if(Object.keys(validate).length === 0) {
             navigate('/select-plan')
@@ -31,7 +21,6 @@ const YourInfo = () => {
 
     const validation = (data) => {
         const err = {};
-        // const scs = {};
 
         if(data.name === '') {
             err.name = 'This field is required';
@@ -51,7 +40,7 @@ const YourInfo = () => {
             err.telephone = 'Phone number must be 11 digits'
         }
 
-        console.log(error);
+        // console.log(error);
         return err;
     }
 
@@ -72,7 +61,7 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Name</p>
                                 <small className={`text-red-600`}>{error.name}</small>
                             </div>
-                            <input type="text" value={data.name} name='name' onChange={handleInput} placeholder='e.g David, David' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="text" value={user_info.name} name='name' onChange={handleInput} placeholder='e.g David, David' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
 
                         <div className='grid gap-1'>
@@ -80,7 +69,7 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Email Address</p>
                                 <small className={`text-red-600`}>{error.email}</small>
                             </div>
-                            <input type="email" value={data.email} name='email' onChange={handleInput} placeholder='e.g daviddavid@lorem.com' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="email" value={user_info.email} name='email' onChange={handleInput} placeholder='e.g daviddavid@lorem.com' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
 
                         <div className='grid gap-1'>
@@ -88,7 +77,7 @@ const YourInfo = () => {
                                 <p className='text-primary font-semibold'>Phone Number</p>
                                 <small className={`text-red-600`}>{error.telephone}</small>
                             </div>
-                            <input type="tel" value={data.telephone} name='telephone' onChange={handleInput} placeholder='e.g +2348888889980' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
+                            <input type="tel" value={user_info.telephone} name='telephone' onChange={handleInput} placeholder='e.g +2348888889980' className={`rounded-lg h-12 px-3 w-full border-2 border-gray outline-none`} />
                         </div>
                     </div>
 

@@ -13,18 +13,31 @@ const reducer = (state, action) => {
         case ACTIONS.INPUT:
             return {
                 ...state,
-                formState: [...state.formState, action.payload]
+                user_info: {...state.user_info, [action.payload.name]: action.payload.value}
                 // formState: [e.target.name]: e.target.value
             }
         case ACTIONS.PLAN:
-            return {
-                ...state,
-                formState: [...state.formState, action.payload]
+            const isPlanSelected = state.plan.find(p => p.name === action.payload.name);
+            if (isPlanSelected) {
+                // Remove plan if it's already selected
+                return {
+                    ...state,
+                    plan: state.plan.filter(p => p.name !== action.payload.name)
+                }
+            } else if (state.plan.length < 2) {
+                // Add plan if fewer than 2 plans are selected
+                return {
+                    ...state,
+                    plan: [...state.plan, action.payload]
+                }
+            } else {
+                // Do nothing if 2 plans are already selected
+                return state;
             }
         case ACTIONS.ADDONS:
             return {
                 ...state,
-                formState: [...state.formState, action.payload]
+                addons: [...state.addons, action.payload]
             }
         default:
             break;
@@ -32,66 +45,40 @@ const reducer = (state, action) => {
 }
 
 const formState = {
-    name: '',
-    email: '',
-    telephone: '',
-    plan: {
-        type: '',
+    user_info: {
+        name: '',
+        email: '',
+        telephone: '',
+    },
+    plan: [],
+    addons: {
         name: '',
         cost: '',
-    },
-    addons: {
-        first: {
-            name: '',
-            cost: '',
-            extra: '',
-        },
-        second: {
-            name: '',
-            cost: '',
-            extra: '',
-        }
-    },
+        extra: '',
+    }
 }
 
 export const FormProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, formState);
     const [error, setError] = useState({});
-    const [data, setData] = useState({
-        name: '',
-        email: '',
-        telephone: '+2348126215807',
-        plan: {
-            type: '',
-            name: '',
-            cost: '9',
-        },
-        addons: {
-            first: {
-                name: '',
-                cost: '1',
-                extra: '',
-            },
-            second: {
-                name: '',
-                cost: '2',
-                extra: '',
-            }
-        },
-    });
     const [ isSelected, setIsSelected ] = useState();
     const [ toggle, setToggle ] = useState(false);
     const [isSelectedAddon, setIsSelectedAddon] = useState(false);
 
     const handleInput = (e) => {
-        const input = {...data, [e.target.name]: e.target.value};
-        setData(input);
-        dispatch({ type: 'INPUT', payload: e})
+        const {name, value} = e.target;
+        dispatch({ type: ACTIONS.INPUT, payload: {name, value}})
         // setError(validation(data));
     }
 
+// Function to handle selection of a plan
+const handlePlanClick = (plan) => {
+    dispatch({ type: ACTIONS.PLAN, payload: plan });
+};
+console.log(state)
+
     return(
-        <FormContext.Provider value={{ state, data, setData, error, setError, isSelected, setIsSelected, toggle, setToggle, isSelectedAddon, setIsSelectedAddon }}>
+        <FormContext.Provider value={{ state, handleInput, handlePlanClick, error, setError, isSelected, setIsSelected, toggle, setToggle, isSelectedAddon, setIsSelectedAddon }}>
             { children }
         </FormContext.Provider>
     )

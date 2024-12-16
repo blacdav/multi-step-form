@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Addons = () => {
-  const { step, setStep, toggle, isSelectedAddon, setIsSelectedAddon } = useForm();
+  const { toggle, isSelectedAddon, setIsSelectedAddon } = useForm();
   const [addons, setAddons] = useState([]);
   const [selectedAddons, setSelectedAddons] = useState([]);
 
@@ -93,7 +93,7 @@ const Addons = () => {
             </div>
 
             <div className="w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-5 absolute bottom-0 md:relative md:bottom-auto">
-              <p onClick={() => setStep(step - 1)} className="text-gray hover:text-primary hover:cursor-pointer">Go Back</p>
+              <p onClick={() => navigate(-1)} className="text-gray hover:text-primary hover:cursor-pointer">Go Back</p>
               <button className="rounded-lg bg-primary text-white w-fit h-12 px-5">Next step</button>
             </div>
           </form>

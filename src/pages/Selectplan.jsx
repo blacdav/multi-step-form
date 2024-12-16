@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Selectplan = () => {
-  const { step, setStep, data, setData, toggle, setToggle, isSelected, setIsSelected } = useForm();
+  const { state, data, setData, toggle, setToggle, handlePlanClick, isSelected, setIsSelected, selectedPlans, setSelectedPlans } = useForm();
   const [plan, setPlan] = useState([]);
-  const [selectedPlans, setSelectedPlans] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,43 +19,27 @@ const Selectplan = () => {
         throw new Error(`Network Response was not OK`);
       }
       const data = await res.json();
-      console.log(data);
       setPlan(data.Plans);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // Function to handle selection of a plan
-  const handlePlanClick = (planId) => {
-    if (selectedPlans.includes(planId.id)) {
-      // Deselect the plan if already selected
-      setSelectedPlans(selectedPlans.filter(id => id !== planId.id));
-    } else if (selectedPlans.length < 1) {
-      // Select the plan if less than 2 plans are selected0
-      setSelectedPlans([...selectedPlans, planId.id]);
-      // const myPlan = {...data, [plan.name]: 'Arcane'}
-
-      // setData(selectedPlans)
-      console.log(selectedPlans)
-    }
-  };
-
   const handleSubmit = (e, planId) => {
     e.preventDefault();
 
-    if(selectedPlans.length < 1) {
+    if(state.plan.length < 1) {
       alert('please select a plan')
     } else {
       navigate('/addons')
     }
 
-    if (toggle === true) {
-      setData({...data, [plan.type]: 'yearly'})
-      // data.plan.type = 'yearly';
-    } else {
-      data.plan.type = 'monthly';
-    }
+    // if (toggle === true) {
+    //   setData({...data, [plan.type]: 'yearly'})
+    //   // data.plan.type = 'yearly';
+    // } else {
+    //   data.plan.type = 'monthly';
+    // }
   };
 
   return (
@@ -77,7 +60,7 @@ const Selectplan = () => {
                     key={p.id}
                     onClick={() => handlePlanClick(p)}
                     className={`flex flex-row md:flex-col justify-normal md:justify-between items-center md:items-start gap-4 w-full md:w-1/3 border-2 hover:cursor-pointer hover:border-secondary ${
-                      selectedPlans.includes(p.id) ? 'border-secondary' : 'border-gray'
+                      state.plan.some(s => s.name === p.name) ? 'border-secondary' : 'border-gray'
                     } rounded-lg p-3`}
                   >
                     {/* <input type="radio" name='plan' checked={selectedPlans.includes(p)} className={`h-5 w-5`} /> */}
@@ -108,7 +91,7 @@ const Selectplan = () => {
             </div>
 
             <div className="w-full h-auto flex bg-black md:bg-transparent p-5 md:px-0 font-semibold justify-between items-baseline mt-5 absolute bottom-0 md:relative md:bottom-auto">
-              <p onClick={() => setStep(step - 1)} className="font-semibold text-gray hover:text-primary cursor-pointer">
+              <p onClick={() => navigate(-1)} className="font-semibold text-gray hover:text-primary cursor-pointer">
                 Go Back
               </p>
               <button className="rounded-lg bg-primary text-white w-fit h-12 px-5">Next step</button>
