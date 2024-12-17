@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Selectplan = () => {
-  const { state, data, setData, toggle, setToggle, handlePlanClick, isSelected, setIsSelected, selectedPlans, setSelectedPlans } = useForm();
+  const { state, toggle, setToggle, handlePlanClick } = useForm();
   const [plan, setPlan] = useState([]);
   const navigate = useNavigate();
 

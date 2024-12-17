@@ -1,14 +1,17 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import { useForm } from '../context/FormManagement';
+import { useNavigate } from 'react-router-dom';
 
 const Summary = () => {
-  const { step, setStep, toggle, data } = useForm();
-  const plan = Number(data.plan.cost);
-  const first = Number(data.addons.first.cost);
-  const second = Number(data.addons.second.cost);
+  const { step, setStep, toggle, state: { plan, addons } } = useForm();
+  const first = Number(plan.mcost);
+  const second = Number(addons.mcost);
+  const third = Number(addons.mcost);
 
-  const total = plan + first + second;
+  const total = first + second + third;
+
+  const navigate = useNavigate()
 
   return (
     <div className='flex flex-col md:flex-row h-svh'>
@@ -26,18 +29,18 @@ const Summary = () => {
                 <div className='bg-slate-200 p-5 rounded-lg'>
                     <div className='flex items-center justify-between pb-5 border-b border-gray'>
                         <div className=''>
-                            <p className='font-semibold text-primary'>{data.plan.name} ({data.plan.type})</p>
-                            <small onClick={() => setStep(1)} className='text-gray underline hover:cursor-pointer'>Change</small>
+                            <p className='font-semibold text-primary'>{plan.name} ({plan.type})</p>
+                            <small onClick={() => navigate('/select-plan')} className='text-gray underline hover:cursor-pointer'>Change</small>
                         </div>
-                        <small className='text-primary font-semibold'>${data.plan.cost}/{toggle === true ? 'yr' : 'mo'}</small>
+                        <small className='text-primary font-semibold'>${plan.cost}/{toggle === true ? 'yr' : 'mo'}</small>
                     </div>
                     <div className='grid gap-2 pt-3'>
                         <div className='flex justify-between'>
-                            <small className='text-gray'>Online Service</small>
+                            <small className='text-gray'>{addons.name}</small>
                             <small className='text-primary font-semibold'>+$1/{toggle === true ? 'yr' : 'mo'}</small>
                         </div>
                         <div className='flex justify-between'>
-                            <small className='text-gray'>Larger storage</small>
+                            <small className='text-gray'>{addons.name}</small>
                             <small className='text-primary font-semibold'>+$2/{toggle === true ? 'yr' : 'mo'}</small>
                         </div>
                     </div>
@@ -50,7 +53,7 @@ const Summary = () => {
             </div>
 
             <div className='w-full bg-black px-5 md:px-0 md:bg-transparent font-semibold flex justify-between items-baseline p-5 mt-5 absolute bottom-0 md:relative md:bottom-auto'>
-              <p onClick={() => setStep(step -1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
+              <p onClick={() => navigate(-1)} className='text-gray hover:text-primary hover:cursor-pointer'>Go Back</p>
               <button className='rounded-lg bg-secondary text-white w-fit h-12 px-5'>Confirm</button>
             </div>
           </form>

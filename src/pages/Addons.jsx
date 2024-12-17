@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../context/FormManagement';
 
 const Addons = () => {
-  const { toggle, isSelectedAddon, setIsSelectedAddon } = useForm();
+  const { state, toggle, handleAddonsClick } = useForm();
   const [addons, setAddons] = useState([]);
-  const [selectedAddons, setSelectedAddons] = useState([]);
 
   const navigate = useNavigate();
 
@@ -27,30 +26,15 @@ const Addons = () => {
     }
   };
 
-  const toggleSelectAddon = (id) => {
-    if (selectedAddons.includes(id)) {
-      // Unselect the addon if already selected
-      setSelectedAddons(selectedAddons.filter(addonId => addonId !== id));
-    } else if (selectedAddons.length < 2) {
-      // Only add to selection if less than two are selected
-      setSelectedAddons([...selectedAddons, id]);
-    }
-  };
-
-  const handleDivClick = (id) => {
-    toggleSelectAddon(id.id);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(selectedAddons.length === 0) {
+    if(state.addons.length === 0) {
       alert('please select items');
-    } else if(selectedAddons.length === 1) {
+    } else if(state.addons.length === 1) {
       alert('please select atleast two items');
     } else {
       navigate('/summary')
     }
-    console.log('Selected Add-ons:', selectedAddons);
   };
 
   return (
@@ -68,16 +52,16 @@ const Addons = () => {
               {addons.map((a) => (
                 <div
                   key={a.id}
-                  onClick={() => handleDivClick(a)}
+                  onClick={() => handleAddonsClick(a)}
                   className={`flex h-20 justify-between items-center px-5 gap-1 border-2 ${
-                    selectedAddons.includes(a.id) ? 'border-secondary' : 'border-gray'
+                    state.addons.some(s => s.name === a.name) ? 'border-secondary' : 'border-gray'
                   } hover:cursor-pointer hover:border-secondary rounded-lg`}
                 >
                   <div className="flex gap-4 leading-5">
                     <input
                       type="checkbox"
-                      checked={selectedAddons.includes(a.id)}
-                      onChange={() => toggleSelectAddon(a.id)} // No need to handle checkbox separately
+                      checked={state.addons.some(s => s.name === a.name)}
+                      onChange={() => state.addons.some(s => s.name === a.name)} // No need to handle checkbox separately
                       className="accent-secondary w-4"
                     />
                     <div className="text-justify">

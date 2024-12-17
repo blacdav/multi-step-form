@@ -24,7 +24,7 @@ const reducer = (state, action) => {
                     ...state,
                     plan: state.plan.filter(p => p.name !== action.payload.name)
                 }
-            } else if (state.plan.length < 2) {
+            } else if (state.plan.length < 1) {
                 // Add plan if fewer than 2 plans are selected
                 return {
                     ...state,
@@ -35,9 +35,22 @@ const reducer = (state, action) => {
                 return state;
             }
         case ACTIONS.ADDONS:
-            return {
-                ...state,
-                addons: [...state.addons, action.payload]
+            const isAddons = state.addons.find(a => a.name === action.payload.name);
+            if(isAddons) {
+                // Remove plan if it's already selected
+                return {
+                    ...state,
+                    addons: state.addons.filter(a => a.name !== action.payload.name)
+                }
+            } else if (state.addons.length < 2) {
+                // Add addons if fewer than 2 plans are selected
+                return {
+                    ...state,
+                    addons: [...state.addons, action.payload]
+                }
+            } else {
+                // Do nothing if 2 plans are already selected
+                return state;
             }
         default:
             break;
@@ -45,17 +58,9 @@ const reducer = (state, action) => {
 }
 
 const formState = {
-    user_info: {
-        name: '',
-        email: '',
-        telephone: '',
-    },
+    user_info: {},
     plan: [],
-    addons: {
-        name: '',
-        cost: '',
-        extra: '',
-    }
+    addons: []
 }
 
 export const FormProvider = ({ children }) => {
@@ -71,14 +76,19 @@ export const FormProvider = ({ children }) => {
         // setError(validation(data));
     }
 
-// Function to handle selection of a plan
-const handlePlanClick = (plan) => {
-    dispatch({ type: ACTIONS.PLAN, payload: plan });
-};
-console.log(state)
+    // Function to handle selection of a plan
+    const handlePlanClick = (plan) => {
+        dispatch({ type: ACTIONS.PLAN, payload: plan });
+    };
+
+    const handleAddonsClick = (plan) => {
+        dispatch({ type: ACTIONS.ADDONS, payload: plan });
+    };
+
+    console.log(state)
 
     return(
-        <FormContext.Provider value={{ state, handleInput, handlePlanClick, error, setError, isSelected, setIsSelected, toggle, setToggle, isSelectedAddon, setIsSelectedAddon }}>
+        <FormContext.Provider value={{ state, handleInput, handlePlanClick, handleAddonsClick, error, setError, isSelected, setIsSelected, toggle, setToggle, isSelectedAddon, setIsSelectedAddon }}>
             { children }
         </FormContext.Provider>
     )
